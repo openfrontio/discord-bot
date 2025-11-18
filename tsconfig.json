@@ -14,7 +14,8 @@
     "strictNullChecks": true,
     "useDefineForClassFields": false,
     "strictPropertyInitialization": false,
-    "outDir": "dist"
+    "outDir": "dist",
+    "allowImportingTsExtensions": false
   },
   "include": [
     "src/**/*",
@@ -25,5 +26,9 @@
     "src/scripts",
     "__mocks__/**/*"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "tsc-alias": {
+    "resolveFullPaths": true,
+    "verbose": false
+  }
 }

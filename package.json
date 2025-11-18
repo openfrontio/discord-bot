@@ -5,7 +5,7 @@
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && tsc-alias",
     "start": "node dist/src/index.js",
     "dev": "nodemon",
     "lint": "eslint .",
@@ -15,7 +15,8 @@
     "type-check": "tsc --noEmit",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "deploy-commands": "node dist/src/scripts/deploy_commands.js"
   },
   "keywords": [
     "discord",
@@ -38,6 +39,7 @@
     "prettier-plugin-organize-imports": "^3.2.3",
     "prettier-plugin-sh": "^0.14.0",
     "ts-node": "^10.9.2",
+    "tsc-alias": "^1.8.16",
     "typescript": "^5.3.3",
     "typescript-eslint": "^8.0.0"
   },
