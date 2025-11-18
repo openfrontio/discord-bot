@@ -1,10 +1,10 @@
 import { REST, Routes } from "discord.js";
 import config from "../../config.json" with { type: "json" };
-import { discover_commands } from "../commands/command_util";
+import { discover_commands } from "../util/file_discovery";
 
 async function deploy_commands() {
   const commands = (await discover_commands()).map((command) =>
-    command.toJSON(),
+    command.data.toJSON(),
   );
 
   const rest = new REST().setToken(config.token);
