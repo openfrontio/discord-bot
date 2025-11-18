@@ -5,7 +5,6 @@
     "rootDir": ".",
     "moduleResolution": "node",
     "sourceMap": true,
-    "ignoreDeprecations": "6.0",
     "allowSyntheticDefaultImports": true,
     "allowUnusedLabels": false,
     "alwaysStrict": true,
@@ -14,7 +13,8 @@
     "resolveJsonModule": true,
     "strictNullChecks": true,
     "useDefineForClassFields": false,
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
+    "outDir": "dist"
   },
   "include": [
     "src/**/*",
@@ -27,4 +27,3 @@
   ],
   "exclude": ["node_modules"]
 }
-

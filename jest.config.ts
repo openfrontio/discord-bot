@@ -1,23 +1,23 @@
 export default {
-  testEnvironment: 'node',
-  testRegex: '/tests/.*\\.(test|spec)?\\.(ts|tsx)$',
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-  extensionsToTreatAsEsm: ['.ts'],
+  testEnvironment: "node",
+  testRegex: "/tests/.*\\.(test|spec)?\\.(ts|tsx)$",
+  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
+  extensionsToTreatAsEsm: [".ts"],
   moduleNameMapper: {
-    '^(\\..*)\\.js$': '$1',
-    '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
-      '<rootDir>/__mocks__/fileMock.js',
-    '\\.(css|less)$': '<rootDir>/__mocks__/fileMock.js',
+    "^(\\..*)\\.js$": "$1",
+    "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
+      "<rootDir>/__mocks__/fileMock.js",
+    "\\.(css|less)$": "<rootDir>/__mocks__/fileMock.js",
   },
   transform: {
-    '^.+\\.tsx?$': ['@swc/jest'],
-    '^.+\\.mjs$': ['@swc/jest'],
-    '^.+\\.js$': ['@swc/jest'],
+    "^.+\\.tsx?$": ["@swc/jest"],
+    "^.+\\.mjs$": ["@swc/jest"],
+    "^.+\\.js$": ["@swc/jest"],
   },
   transformIgnorePatterns: [
-    'node_modules/(?!(nanoid|@jsep|fastpriorityqueue|@datastructures-js)/)',
+    "node_modules/(?!(nanoid|@jsep|fastpriorityqueue|@datastructures-js)/)",
   ],
-  collectCoverageFrom: ['src/**/*.ts', '!src/**/*.d.ts'],
+  collectCoverageFrom: ["src/**/*.ts", "!src/**/*.d.ts"],
   coverageThreshold: {
     global: {
       statements: 21,
@@ -26,6 +26,5 @@ export default {
       functions: 20.5,
     },
   },
-  coverageReporters: ['text', 'lcov', 'html'],
+  coverageReporters: ["text", "lcov", "html"],
 };
-
