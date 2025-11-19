@@ -1,6 +1,5 @@
 import { includeIgnoreFile } from "@eslint/compat";
 import pluginJs from "@eslint/js";
-import eslintConfigPrettier from "eslint-config-prettier/flat";
 import globals from "globals";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -29,7 +28,6 @@ export default [
   { languageOptions: { globals: { ...globals.browser, ...globals.node } } },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
-  eslintConfigPrettier,
   {
     languageOptions: {
       parserOptions: {
