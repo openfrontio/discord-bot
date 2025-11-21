@@ -3,6 +3,7 @@ import {
   MessageFlags,
   SlashCommandBuilder,
 } from "discord.js";
+import { getClanLeaderboardMessage } from "../../messages/clan_leaderboard";
 import { getPublicFFALeaderboardMessage } from "../../messages/public_ffa_leaderboard";
 import { CommandHandler } from "../../structures/command";
 
@@ -39,7 +40,15 @@ const command: CommandHandler = {
       }
       interaction.reply(message as InteractionReplyOptions);
     } else if (type === "clans") {
-      interaction.reply({ content: "soon", flags: MessageFlags.Ephemeral });
+      const message = await getClanLeaderboardMessage(0);
+      if (message === undefined) {
+        interaction.reply({
+          content: "Failed to fetch leaderboard",
+          flags: MessageFlags.Ephemeral,
+        });
+        return;
+      }
+      interaction.reply(message as InteractionReplyOptions);
     } else {
       interaction.reply({
         content: `Unknown "type": "${type}"`,

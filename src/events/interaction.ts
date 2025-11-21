@@ -7,6 +7,7 @@ import {
   MessageFlags,
 } from "discord.js";
 import { commandsMap } from "../index";
+import { getClanLeaderboardMessage } from "../messages/clan_leaderboard";
 import { getPublicFFALeaderboardMessage } from "../messages/public_ffa_leaderboard";
 import { EventHandler } from "../structures/event";
 
@@ -41,7 +42,23 @@ const event: EventHandler = {
         );
         const message = await getPublicFFALeaderboardMessage(pageNumber);
         if (message === undefined) return;
-        interaction.update(message as InteractionUpdateOptions);
+        try {
+          await interaction.update(message as InteractionUpdateOptions);
+        } catch (e) {
+          console.warn(e);
+        }
+      } else if (interaction.customId.startsWith("clan-lb-view-page-")) {
+        const pageNumber = parseInt(
+          interaction.customId.substring("clan-lb-view-page-".length),
+        );
+        console.log(pageNumber);
+        const message = await getClanLeaderboardMessage(pageNumber);
+        if (message === undefined) return;
+        try {
+          await interaction.update(message as InteractionUpdateOptions);
+        } catch (e) {
+          console.warn(e);
+        }
       }
     }
   },
