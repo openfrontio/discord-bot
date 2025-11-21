@@ -17,6 +17,7 @@ export async function getPublicFFALeaderboardMessage(
 ): Promise<MessageType | undefined> {
   let pageData = await getPublicFFALeaderboard();
   if (pageData === undefined) return undefined;
+  const original_page_len = pageData.length;
   pageData = pageData.filter(
     (_value, index) =>
       index >= page * LEADERBOARD_PAGE_ENTRIES &&
@@ -38,7 +39,6 @@ export async function getPublicFFALeaderboardMessage(
                     ` + (user_str ?? "*(No Discord account associated)*\n");
   });
   const backButton = new ButtonBuilder()
-    .setLabel("Previous page")
     .setEmoji("⬅️")
     .setStyle(ButtonStyle.Primary);
   if (page === 0) {
@@ -48,7 +48,6 @@ export async function getPublicFFALeaderboardMessage(
     backButton.setCustomId("lb-view-page-" + (page - 1));
   }
   const nextButton = new ButtonBuilder()
-    .setLabel("Next page")
     .setEmoji("➡️")
     .setStyle(ButtonStyle.Primary);
   if (page === LEADERBOARD_MAX_PAGE) {
@@ -57,6 +56,15 @@ export async function getPublicFFALeaderboardMessage(
   } else {
     nextButton.setCustomId("lb-view-page-" + (page + 1));
   }
+
+  const pageButton = new ButtonBuilder()
+    .setLabel(
+      `${page + 1} / ${Math.ceil(original_page_len / LEADERBOARD_PAGE_ENTRIES)}`,
+    )
+    .setStyle(ButtonStyle.Secondary)
+    .setCustomId("x")
+    .setDisabled(true);
+
   return {
     embeds: [
       new EmbedBuilder()
@@ -66,7 +74,9 @@ export async function getPublicFFALeaderboardMessage(
         .setTimestamp(),
     ],
     components: [
-      new ActionRowBuilder().addComponents(backButton, nextButton).toJSON(),
+      new ActionRowBuilder()
+        .addComponents(backButton, pageButton, nextButton)
+        .toJSON(),
     ],
   };
 }
