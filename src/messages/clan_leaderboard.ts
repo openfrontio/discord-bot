@@ -74,7 +74,8 @@ export async function getClanLeaderboardMessage(
         .setTitle("Clan Leaderboard")
         .setDescription(str)
         .setFooter({ text: "OpenFront" })
-        .setTimestamp(),
+        .setTimestamp()
+        .setColor("#ffffff"),
     ],
     components: [
       new ActionRowBuilder()

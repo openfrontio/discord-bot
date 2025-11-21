@@ -71,7 +71,8 @@ export async function getPublicFFALeaderboardMessage(
         .setTitle("Public FFA Leaderboard")
         .setDescription(str)
         .setFooter({ text: "OpenFront" })
-        .setTimestamp(),
+        .setTimestamp()
+        .setColor("#ffffff"),
     ],
     components: [
       new ActionRowBuilder()
