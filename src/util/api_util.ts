@@ -1,3 +1,5 @@
+import { ClanLeaderboardData, PublicFFALeaderboardEntry } from "./api_schemas";
+
 const API_PUBLIC_FFA_LEADERBOARD_PATH =
   "https://api.openfront.io/leaderboard/public/ffa";
 const API_CLAN_LEADERBOARD_PATH =
@@ -20,36 +22,6 @@ const clanLeaderboardCache: {
   data: undefined,
   last_updated: 0,
 };
-
-export interface PublicFFALeaderboardEntry {
-  wlr: number;
-  wins: number;
-  losses: number;
-  total: number;
-  public_id: string;
-  user?: {
-    id: string;
-    username: string;
-    discriminator: string;
-    global_name: string;
-    avatar: string;
-  };
-}
-
-export interface ClanLeaderboardData {
-  start: string;
-  end: string;
-  clans: {
-    clanTag: string;
-    games: number;
-    wins: number;
-    losses: number;
-    playerSessions: number;
-    weightedWins: number;
-    weightedLosses: number;
-    weightedWLRatio: number;
-  }[];
-}
 
 export async function getPublicFFALeaderboard(): Promise<
   PublicFFALeaderboardEntry[] | undefined
