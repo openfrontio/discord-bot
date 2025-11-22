@@ -1,3 +1,4 @@
+import dedent from "dedent";
 import {
   ActionRowBuilder,
   ButtonBuilder,
@@ -30,13 +31,15 @@ export async function getPublicFFALeaderboardMessage(
         ? undefined
         : `**Discord**: <@${entry.user.id}> (\`@${entry.user.username}\`)\n`;
     str +=
-      `
-                    **PublicId**: \`${entry.public_id}\`
-                    **Win-Loss-Ratio**: \`${entry.wlr}\`
-                    **Wins**: \`${entry.wins}\`
-                    **Losses**: \`${entry.losses}\`
-                    **Total games played**: \`${entry.total}\`
-                    ` + (user_str ?? "*(No Discord account associated)*\n");
+      dedent`
+      **PublicId**: \`${entry.public_id}\`
+      **Win-Loss-Ratio**: \`${entry.wlr}\`
+      **Wins**: \`${entry.wins}\`
+      **Losses**: \`${entry.losses}\`
+      **Total games played**: \`${entry.total}\`\n
+      ` +
+      (user_str ?? "*(No Discord account associated)*\n") +
+      "\n";
   });
   const backButton = new ButtonBuilder()
     .setEmoji("⬅️")

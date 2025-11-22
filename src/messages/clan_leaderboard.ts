@@ -1,3 +1,4 @@
+import dedent from "dedent";
 import {
   ActionRowBuilder,
   ButtonBuilder,
@@ -30,16 +31,16 @@ export async function getClanLeaderboardMessage(
   )} to ${dateToDiscordTimestamp(
     end_date,
     TimestampStyles.FullDateShortTime,
-  )}\n`;
+  )}\n\n`;
   pageData.clans.forEach((entry) => {
-    str += `
-                    **Tag**: \`[${entry.clanTag}]\`
-                    **Wins**: \`${entry.wins}\` (**Weighted**: \`${entry.weightedWins}\`)
-                    **Losses**: \`${entry.losses}\` (**Weighted**: \`${entry.weightedLosses}\`)
-                    **Total games played**: \`${entry.games}\`
-                    **Total sessions**: \`${entry.playerSessions}\`
-                    **Weighted win-loss-ratio**: \`${entry.weightedWLRatio}\`
-                    `;
+    str += dedent`
+      **Tag**: \`[${entry.clanTag}]\`
+      **Wins**: \`${entry.wins}\` (**Weighted**: \`${entry.weightedWins}\`)
+      **Losses**: \`${entry.losses}\` (**Weighted**: \`${entry.weightedLosses}\`)
+      **Total games played**: \`${entry.games}\`
+      **Total sessions**: \`${entry.playerSessions}\`
+      **Weighted win-loss-ratio**: \`${entry.weightedWLRatio}\`
+      \n`;
   });
   const backButton = new ButtonBuilder()
     .setEmoji("⬅️")

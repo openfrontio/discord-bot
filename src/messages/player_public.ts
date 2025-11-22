@@ -1,3 +1,4 @@
+import dedent from "dedent";
 import { EmbedBuilder, TimestampStyles } from "discord.js";
 import { format } from "node:util";
 import { MessageType } from "../structures/message";
@@ -19,8 +20,8 @@ export async function getPlayerPublicMessage(
     .filter((_value, index) => index < RECENT_GAMES_LEN);
   let recent_games_str = "";
   recent_games.forEach((game) => {
-    recent_games_str += `
-        **${game.gameId}** ${dateToDiscordTimestamp(
+    recent_games_str += dedent`
+        \n**${game.gameId}** ${dateToDiscordTimestamp(
           game.start,
           TimestampStyles.RelativeTime,
         )}
@@ -50,8 +51,8 @@ export async function getPlayerPublicMessage(
           summary.losses += entry.losses ?? 0;
           summary.total += entry.total ?? 0;
         }
-        statistics_str += `
-                **${gameModeKey} (summary)**
+        statistics_str += dedent`
+                \n**${gameModeKey} (summary)**
                 __Wins__: \`${summary.wins}\`
                 __Losses__: \`${summary.losses}\`
                 __Total__: \`${summary.total}\`
@@ -61,7 +62,7 @@ export async function getPlayerPublicMessage(
   } else {
     statistics_str = "*(No data to show)*";
   }
-  const str = `
+  const str = dedent`
         **PublicID**: ||\`${publicId}\`||
         **Created**: ${
           playerPublic.createdAt === undefined
@@ -74,6 +75,7 @@ export async function getPlayerPublicMessage(
     
         **__Recent Games__**
         ${recent_games_str}
+
         **__Statistics__**
         ${statistics_str}
     `;

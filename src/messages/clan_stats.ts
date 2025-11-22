@@ -1,3 +1,4 @@
+import dedent from "dedent";
 import { EmbedBuilder } from "discord.js";
 import { MessageType } from "../structures/message";
 import { getClanStats } from "../util/api_util";
@@ -9,17 +10,16 @@ export async function getClanStatsMessage(
   if (clanStats === undefined) {
     return undefined;
   }
+  const desc = dedent`
+    **Games played**: \`${clanStats.games}\`
+    **Total sessions**: \`${clanStats.playerSessions}\`
+    **Wins**: \`${clanStats.wins}\` (**Weighted**: \`${clanStats.weightedWins}\`)
+    **Losses**: \`${clanStats.losses}\` (**Weighted**: \`${clanStats.weightedLosses}\`)
+    **Weighted win-loss-ratio**: \`${clanStats.weightedWLRatio}\`
+    `;
   const embed = new EmbedBuilder()
     .setTitle(`[${clanStats.clanTag}] Statistics`)
-    .setDescription(
-      `
-            **Games played**: \`${clanStats.games}\`
-            **Total sessions**: \`${clanStats.playerSessions}\`
-            **Wins**: \`${clanStats.wins}\` (**Weighted**: \`${clanStats.weightedWins}\`)
-            **Losses**: \`${clanStats.losses}\` (**Weighted**: \`${clanStats.weightedLosses}\`)
-            **Weighted win-loss-ratio**: \`${clanStats.weightedWLRatio}\`
-            `,
-    )
+    .setDescription(desc)
     .setFooter({ text: "OpenFront" })
     .setTimestamp()
     .setColor("#ffffff");
