@@ -1,7 +1,8 @@
 import dedent from "dedent";
-import { EmbedBuilder } from "discord.js";
+import { AttachmentBuilder, EmbedBuilder } from "discord.js";
 import { MessageType } from "../structures/message";
 import { getClanStats } from "../util/api_util";
+import { createWLRImage } from "../util/images";
 
 export async function getClanStatsMessage(
   clanTag: string,
@@ -22,27 +23,14 @@ export async function getClanStatsMessage(
     .setDescription(desc)
     .setFooter({ text: "OpenFront" })
     .setTimestamp()
+    .setImage("attachment://wlr.png")
     .setColor("#ffffff");
   return {
     embeds: [embed],
+    files: [
+      new AttachmentBuilder(await createWLRImage(clanStats.weightedWLRatio), {
+        name: "wlr.png",
+      }),
+    ],
   };
 }
-
-/*
-clanTag: string;
-games: number;
-playerSessions: number;
-wins: number;
-losses: number;
-weightedWins: number;
-weightedLosses: number;
-weightedWLRatio: number;
-teamTypeWL: Record<string, {
-    wl: [number, number];
-    weightedWL: [number, number];
-}>;
-teamCountWL: Record<number, {
-    wl: [number, number];
-    weightedWL: [number, number];
-}>;
-*/
