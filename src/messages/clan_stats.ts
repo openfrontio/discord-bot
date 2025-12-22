@@ -11,17 +11,17 @@ export async function getClanStatsMessage(
     return undefined;
   }
   const desc = dedent`
-    **Games played**: \`${clanStats.games}\`
-    **Total sessions**: \`${clanStats.playerSessions}\`
-    **Wins**: \`${clanStats.wins}\` (**Weighted**: \`${clanStats.weightedWins}\`)
-    **Losses**: \`${clanStats.losses}\` (**Weighted**: \`${clanStats.weightedLosses}\`)
-    **Weighted win-loss-ratio**: \`${clanStats.weightedWLRatio}\`
+    **Games played**: \`${clanStats.stats.games}\`
+    **Total sessions**: \`${clanStats.stats.playerSessions}\`
+    **Wins**: \`${clanStats.stats.wins}\` (**Weighted**: \`${clanStats.stats.weightedWins}\`)
+    **Losses**: \`${clanStats.stats.losses}\` (**Weighted**: \`${clanStats.stats.weightedLosses}\`)
+    **Weighted win-loss-ratio**: \`${clanStats.stats.weightedWLRatio}\`
     `;
   const embed = new EmbedBuilder()
-    .setTitle(`[${clanStats.clanTag}] Statistics`)
+    .setTitle(`[${clanStats.stats.clanTag}] Statistics`)
     .setDescription(desc)
     .setFooter({ text: "OpenFront" })
-    .setTimestamp()
+    .setTimestamp(clanStats.lastUpdated)
     .setColor("#ffffff");
   return {
     embeds: [embed],

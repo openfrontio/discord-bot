@@ -15,7 +15,7 @@ export async function getPlayerPublicMessage(
 ): Promise<MessageType | undefined> {
   const playerPublic = await getPlayerPublic(publicId);
   if (playerPublic === undefined) return undefined;
-  const recent_games = playerPublic.games
+  const recent_games = playerPublic.player.games
     .sort((a, b) => b.start.getTime() - a.start.getTime())
     .filter((_value, index) => index < RECENT_GAMES_LEN);
   let recent_games_str = "";
@@ -30,8 +30,8 @@ export async function getPlayerPublicMessage(
         `;
   });
   let statistics_str = "";
-  if (playerPublic.stats.Public !== undefined) {
-    const publicStats = playerPublic.stats.Public;
+  if (playerPublic.player.stats.Public !== undefined) {
+    const publicStats = playerPublic.player.stats.Public;
     for (const gameModeKey in publicStats) {
       if (publicStats[gameModeKey] !== undefined) {
         const stat = publicStats[gameModeKey as GameMode];
@@ -65,10 +65,10 @@ export async function getPlayerPublicMessage(
   const str = dedent`
         **PublicID**: ||\`${publicId}\`||
         **Created**: ${
-          playerPublic.createdAt === undefined
+          playerPublic.player.createdAt === undefined
             ? "*(No data)*"
             : dateToDiscordTimestamp(
-                playerPublic.createdAt,
+                playerPublic.player.createdAt,
                 TimestampStyles.RelativeTime,
               )
         }
@@ -85,7 +85,7 @@ export async function getPlayerPublicMessage(
       new EmbedBuilder()
         .setTitle(`Player summary`)
         .setDescription(str)
-        .setTimestamp()
+        .setTimestamp(playerPublic.lastUpdated)
         .setColor("#ffffff")
         .setFooter({ text: "OpenFront" }),
     ],

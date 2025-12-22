@@ -15,8 +15,15 @@ const LEADERBOARD_PAGE_ENTRIES = 5;
 export async function getClanLeaderboardMessage(
   page: number,
 ): Promise<MessageType | undefined> {
-  const pageData = await getClanLeaderboard();
-  if (pageData === undefined) return undefined;
+  const clanLeaderboardData = await getClanLeaderboard();
+  if (
+    clanLeaderboardData === undefined ||
+    clanLeaderboardData.data === undefined ||
+    clanLeaderboardData.last_updated === undefined
+  )
+    return undefined;
+  const pageData = clanLeaderboardData.data;
+  const lastUpdated = clanLeaderboardData.last_updated;
   const original_page_len = pageData.clans.length;
   pageData.clans = pageData.clans.filter(
     (_value, index) =>
@@ -75,7 +82,7 @@ export async function getClanLeaderboardMessage(
         .setTitle("Clan Leaderboard")
         .setDescription(str)
         .setFooter({ text: "OpenFront" })
-        .setTimestamp()
+        .setTimestamp(lastUpdated)
         .setColor("#ffffff"),
     ],
     components: [

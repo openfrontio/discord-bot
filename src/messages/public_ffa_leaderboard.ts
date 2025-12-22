@@ -16,16 +16,21 @@ const LEADERBOARD_MAX_PAGE =
 export async function getPublicFFALeaderboardMessage(
   page: number,
 ): Promise<MessageType | undefined> {
-  let pageData = await getPublicFFALeaderboard();
-  if (pageData === undefined) return undefined;
-  const original_page_len = pageData.length;
-  pageData = pageData.filter(
+  const pageData = await getPublicFFALeaderboard();
+  if (
+    pageData === undefined ||
+    pageData.data === undefined ||
+    pageData.last_updated === undefined
+  )
+    return undefined;
+  const original_page_len = pageData.data.length;
+  pageData.data = pageData.data.filter(
     (_value, index) =>
       index >= page * LEADERBOARD_PAGE_ENTRIES &&
       index < page * LEADERBOARD_PAGE_ENTRIES + LEADERBOARD_PAGE_ENTRIES,
   );
   let str = "";
-  pageData.forEach((entry) => {
+  pageData.data.forEach((entry) => {
     const user_str =
       entry.user === undefined
         ? undefined
@@ -74,7 +79,7 @@ export async function getPublicFFALeaderboardMessage(
         .setTitle("Public FFA Leaderboard")
         .setDescription(str)
         .setFooter({ text: "OpenFront" })
-        .setTimestamp()
+        .setTimestamp(pageData.last_updated)
         .setColor("#ffffff"),
     ],
     components: [
